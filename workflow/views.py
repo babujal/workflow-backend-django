@@ -18,6 +18,17 @@ class WorkOrderViewsSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return WorkOrder.objects.filter(user=self.request.user)
 
+
+# THis querry returns all workorders in even if doesn't belong to the user
+# Changes were necesary in views.py and urls.py.
+# in urls.py was necesary to add to the registration of the route basename the basename specifyed.
+class AdminWorkOrderViewsSet(viewsets.ModelViewSet):
+    queryset=WorkOrder.objects.all()
+    serializer_class=WorkOrderSerializers
+
+    def get_queryset(self):
+        return super().get_queryset()
+
 class UserRegistrationView(APIView):
     permission_classes=[AllowAny]
     def post(self, request):

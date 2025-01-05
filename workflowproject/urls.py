@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from workflow.views import WorkOrderViewsSet, UserRegistrationView
+from workflow.views import WorkOrderViewsSet, UserRegistrationView, AdminWorkOrderViewsSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
 
-router.register(r'workflow', WorkOrderViewsSet)
+router.register(r'workflow', WorkOrderViewsSet, basename='workorder')
+router.register(r'adminget', AdminWorkOrderViewsSet, basename='adminworkorder')
 
 urlpatterns = [
     path('api/', include(router.urls)),
